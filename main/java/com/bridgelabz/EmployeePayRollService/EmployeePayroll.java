@@ -12,6 +12,6 @@ public class EmployeePayroll {
     }
 
     public String toString() {
-        return "id : " + this.id + " name : " + this.name + " salary : " + this.salary;
+        return " id : " + this.id + " name : " + this.name + " salary : " + this.salary;
     }
 }
