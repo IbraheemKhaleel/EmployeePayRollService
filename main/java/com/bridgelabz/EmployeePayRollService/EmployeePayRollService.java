@@ -1,13 +1,14 @@
 package com.bridgelabz.EmployeePayRollService;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 class EmployeePayRollService {
-    public ArrayList<EmployeePayroll> employeePayrollList;
-
-
-    public EmployeePayRollService(ArrayList<EmployeePayroll> employeePayrollList) {
+	public enum IOService {CONSOLE_IO ,FILE_IO, DB_IO, REST_IO } ;
+	private List<EmployeePayroll>  employeePayrollList;
+	
+    public EmployeePayRollService(List<EmployeePayroll> employeePayrollList) {
         this.employeePayrollList = employeePayrollList;
     }
 
@@ -16,11 +17,14 @@ class EmployeePayRollService {
         EmployeePayRollService employeePayrollService = new EmployeePayRollService(employeePayrollList);
         Scanner input = new Scanner(System.in);
         employeePayrollService.readEmployeePayrollData(input);
-        employeePayrollService.writeEmployeePayrollData();
+        employeePayrollService.writeEmployeePayrollData(EmployeePayRollService.IOService.CONSOLE_IO);
     }
 
-    private void writeEmployeePayrollData() {
-        System.out.println("Employee data: " + employeePayrollList);
+    public void writeEmployeePayrollData(EmployeePayRollService.IOService ioService) {
+    	if(ioService.equals(EmployeePayRollService.IOService.CONSOLE_IO))
+    		System.out.println("\n Writing employee pay roll to console \n " + employeePayrollList);
+    	else if (ioService.equals(EmployeePayRollService.IOService.FILE_IO))
+    		new EmployeePayrollFileIOService().writeData(employeePayrollList);
     }
 
     private void readEmployeePayrollData(Scanner input) {
